@@ -28,9 +28,6 @@ MainWindow::MainWindow(QWidget *parent) :
     debugListMessages()
 {
     ui->setupUi(this);
-    // Fixed width, minimum height
-    this->setMinimumSize(this->size());
-    this->setMaximumSize(this->size().width(), 2000);
 #ifdef Q_OS_LINUX
     this->setWindowIcon(QIcon(":/images/images/icon48.png"));
 #endif
@@ -61,7 +58,6 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->chk_on, SIGNAL(clicked()), SLOT(onValueChanged()));
     connect(ui->chk_debug, SIGNAL(clicked(bool)), SLOT(onDebugClicked(bool)));
     connect(&debugListTimer, SIGNAL(timeout()), SLOT(refreshDebugList()));
-
 
     // Menu items
     connect(ui->actionExit, SIGNAL(triggered()), qApp, SLOT(quit()));
@@ -153,7 +149,7 @@ void MainWindow::refreshMidi(QComboBox *combo, RtMidi *midi)
            }
         }
     }
-    catch (RtMidiError err) {
+    catch (RtMidiError& err) {
         ui->lst_debug->addItem("Failed to scan for MIDI ports:");
         ui->lst_debug->addItem(QString::fromStdString(err.getMessage()));
         ui->lst_debug->scrollToBottom();
@@ -220,7 +216,7 @@ void MainWindow::onDisplayMessage(QString message)
     if(Settings::getConsoleOutput())
     {
         QTextStream out(stdout);
-        out << message << endl;
+        out << message << Qt::endl;
     }
     if(debugListMessages.size() == scrollbackSize)
         debugListMessages.removeFirst();
@@ -251,14 +247,6 @@ void MainWindow::refreshDebugList()
     lst->addItems(debugListMessages);
     debugListMessages.clear();
     lst->scrollToBottom();
-}
-
-void MainWindow::resizeEvent(QResizeEvent *)
-{
-    QListWidget *lst = ui->lst_debug;
-    QRect geo = lst->geometry();
-    geo.setHeight( this->height() - geo.top() - 20 );
-    lst->setGeometry(geo);
 }
 
 void MainWindow::setDebugFromCommandLine(bool showDebug)

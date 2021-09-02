@@ -66,7 +66,7 @@ static int get_data_length(int status) {
 
 
 Bridge::Bridge() :
-        QObject(),      
+        QObject(),
         running_status(0),
         data_expected(0),
         msg_data(),
@@ -107,7 +107,7 @@ void Bridge::attach(QString serialName, PortSettings serialSettings, int midiInP
             this->midiOut->openPort(midiOutPort);
         }
     }
-    catch(RtMidiError e)
+    catch(RtMidiError& e)
     {
         displayMessage(QString("Failed to open MIDI out port: %1").arg(QString::fromStdString(e.getMessage())));
     }
@@ -124,7 +124,7 @@ void Bridge::attach(QString serialName, PortSettings serialSettings, int midiInP
             connect(this->midiIn, SIGNAL(messageReceived(double,QByteArray)), this, SLOT(onMidiIn(double,QByteArray)));
         }
      }
-    catch(RtMidiError e)
+    catch(RtMidiError& e)
     {
         displayMessage(QString("Failed to open MIDI in port: %1").arg(QString::fromStdString(e.getMessage())));
     }

@@ -24,8 +24,6 @@ public:
 
     bool eventFilter(QObject *, QEvent *);
 
-    void resizeEvent(QResizeEvent *);
-
     void setDebugFromCommandLine(bool showDebug);
     void setConsoleOutputFromCommandLine(bool consoleOutput);
 
