@@ -1,8 +1,7 @@
 #include "PortLatency.h"
 
-PortLatency::PortLatency(QString portName)
-    : portName(portName),
-    isSwitched(false)
-{
+#include <utility>
 
-}
+PortLatency::PortLatency( QString portName )
+    : portName( std::move( portName ) )
+    , isSwitched( false ) {}

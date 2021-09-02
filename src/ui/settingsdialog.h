@@ -4,24 +4,23 @@
 #include <QtWidgets/QDialog>
 
 namespace Ui {
-    class SettingsDialog;
+  class SettingsDialog;
 }
 
-class SettingsDialog : public QDialog
-{
-    Q_OBJECT
+class SettingsDialog : public QDialog {
+  Q_OBJECT
 
 public:
-    explicit SettingsDialog(QWidget *parent = 0);
-    ~SettingsDialog();
+  explicit SettingsDialog( QWidget* parent = 0 );
+  ~SettingsDialog();
 
 private:
-    Ui::SettingsDialog *ui;
+  Ui::SettingsDialog* ui;
 
 public slots:
-    virtual void accept();
+  virtual void accept();
 private slots:
-    void resetSerialPort();
+  void resetSerialPort();
 };
 
 #endif // SETTINGSDIALOG_H

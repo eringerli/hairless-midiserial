@@ -2,27 +2,29 @@
 #define BLINKENLIGHT_H
 
 #include <QObject>
-#include <QtWidgets/QLabel>
 #include <QTimer>
+#include <QtWidgets/QLabel>
 
 /*
  * A custom QLabel that looks like a blinking LED.
  * Handles blinking off after a specified time, all by itself.
  */
-class BlinkenLight : public QLabel
-{
-    Q_OBJECT
+class BlinkenLight : public QLabel {
+  Q_OBJECT
 public:
-    explicit BlinkenLight(QWidget *parent = 0);
-    void setBlinkTime(int blinkTime) { this->timer.setInterval(blinkTime); }
-    ~BlinkenLight() { }
+  explicit BlinkenLight( QWidget* parent = 0 );
+  void setBlinkTime( int blinkTime ) {
+    this->timer.setInterval( blinkTime );
+  }
+  ~BlinkenLight() {}
+
 private:
-    bool on;
-    QTimer timer;
+  bool   on;
+  QTimer timer;
 public slots:
-    void blinkOn();
+  void blinkOn();
 private slots:
-    void blinkOff();
+  void blinkOff();
 };
 
 #endif // BLINKENLIGHT_H
