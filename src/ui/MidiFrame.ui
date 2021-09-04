@@ -26,23 +26,33 @@
    <property name="bottomMargin">
     <number>0</number>
    </property>
-   <item row="4" column="0">
-    <widget class="BlinkenLight" name="led_midiin">
+   <item row="4" column="1">
+    <widget class="QLabel" name="label_3">
      <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
      <property name="text">
-      <string/>
-     </property>
-     <property name="pixmap">
-      <pixmap resource="../../resources.qrc">:/images/images/led-off.png</pixmap>
+      <string>MIDI In</string>
      </property>
     </widget>
    </item>
    <item row="2" column="1">
+    <widget class="QLabel" name="label_2">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="text">
+      <string>MIDI Out</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1">
     <widget class="QComboBox" name="cmbMidiOut">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -52,17 +62,7 @@
      </property>
     </widget>
    </item>
-   <item row="4" column="1">
-    <widget class="QComboBox" name="cmbMidiIn">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="0">
+   <item row="3" column="0">
     <widget class="BlinkenLight" name="led_midiout">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
@@ -78,29 +78,36 @@
      </property>
     </widget>
    </item>
-   <item row="3" column="1">
-    <widget class="QLabel" name="label_3">
+   <item row="5" column="1">
+    <widget class="QComboBox" name="cmbMidiIn">
      <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="0">
+    <widget class="BlinkenLight" name="led_midiin">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
      <property name="text">
-      <string>MIDI In</string>
+      <string/>
+     </property>
+     <property name="pixmap">
+      <pixmap resource="../../resources.qrc">:/images/images/led-off.png</pixmap>
      </property>
     </widget>
    </item>
    <item row="1" column="1">
-    <widget class="QLabel" name="label_2">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
+    <widget class="QCheckBox" name="cbEnable">
      <property name="text">
-      <string>MIDI Out</string>
+      <string>Enable</string>
      </property>
     </widget>
    </item>

@@ -10,10 +10,12 @@
 #include <QThread>
 #include <utility>
 
-SerialFrame::SerialFrame( QString name, QThread* workerThread, QWidget* parent )
+SerialFrame::SerialFrame( const QString& name,
+                          QThread*       workerThread,
+                          QWidget*       parent )
     : QFrame( parent )
     , ui( new Ui::SerialFrame )
-    , name( std::move( std::move( name ) ) )
+    , name( name )
     , workerThread( workerThread ) {
   ui->setupUi( this );
 
@@ -50,51 +52,57 @@ void SerialFrame::sendMessage( MidiMsg& message ) {
 
 void SerialFrame::onSerialValuesChanged() {
   auto settings = Settings( name );
+  if( ui->cbEnable->isChecked() ) {
 
-  if( midiInOut != nullptr &&
-      settings.getLastSerialPort() == ui->cmbSerial->currentText() ) {
-    qDebug() << "!!! delete midiInOut";
-    return;
-  }
+    if( midiInOut != nullptr &&
+        settings.getLastSerialPort() == ui->cmbSerial->currentText() ) {
+      return;
+    }
 
-  if( midiInOut != nullptr ) {
+    if( midiInOut != nullptr ) {
+      midiInOut->deleteLater();
+      QThread::yieldCurrentThread(); // Try and get any signals from the bridge
+                                     // sent sooner not later
+      QCoreApplication::processEvents();
+      midiInOut = nullptr;
+    }
+
+    settings.setLastSerialPort( ui->cmbSerial->currentText() );
+
+    midiInOut = new QSerialMidiInOut();
+
+    connect( midiInOut,
+             &QSerialMidiInOut::displayMessage,
+             this,
+             &SerialFrame::displayMessage );
+    connect( midiInOut,
+             &QSerialMidiInOut::debugMessage,
+             this,
+             &SerialFrame::debugMessage );
+
+    connect( midiInOut,
+             &QSerialMidiInOut::messageReceived,
+             this,
+             &SerialFrame::messageReceived );
+
+    connect( midiInOut,
+             &QSerialMidiInOut::midiSent,
+             ui->led_serial,
+             &BlinkenLight::blinkOn );
+    connect( midiInOut,
+             &QSerialMidiInOut::midiReceived,
+             ui->led_serial,
+             &BlinkenLight::blinkOn );
+
+    midiInOut->attach( settings.getLastSerialPort(),
+                       settings.getPortSettings(),
+                       workerThread );
+  } else {
     midiInOut->deleteLater();
-    QThread::yieldCurrentThread(); // Try and get any signals from the bridge
-                                   // sent sooner not later
-    QCoreApplication::processEvents();
     midiInOut = nullptr;
   }
 
-  settings.setLastSerialPort( ui->cmbSerial->currentText() );
-
-  midiInOut = new QSerialMidiInOut();
-
-  connect( midiInOut,
-           &QSerialMidiInOut::displayMessage,
-           this,
-           &SerialFrame::displayMessage );
-  connect( midiInOut,
-           &QSerialMidiInOut::debugMessage,
-           this,
-           &SerialFrame::debugMessage );
-
-  connect( midiInOut,
-           &QSerialMidiInOut::messageReceived,
-           this,
-           &SerialFrame::messageReceived );
-
-  connect( midiInOut,
-           &QSerialMidiInOut::midiSent,
-           ui->led_serial,
-           &BlinkenLight::blinkOn );
-  connect( midiInOut,
-           &QSerialMidiInOut::midiReceived,
-           ui->led_serial,
-           &BlinkenLight::blinkOn );
-
-  midiInOut->attach( settings.getLastSerialPort(),
-                     settings.getPortSettings(),
-                     workerThread );
+  emit onEnabledChanged(ui->cbEnable->isChecked());
 }
 
 void SerialFrame::on_pbSettings_clicked() {
@@ -120,4 +128,8 @@ void SerialFrame::refreshSerial() {
       ui->cmbSerial->setCurrentIndex( ui->cmbSerial->count() - 1 );
     }
   }
+}
+
+void SerialFrame::on_cbEnable_stateChanged( int ) {
+  onSerialValuesChanged();
 }

@@ -14,7 +14,7 @@ class PortSettingsDialog : public QDialog {
   Q_OBJECT
 
 public:
-  explicit PortSettingsDialog( QString name, QWidget* parent = 0 );
+  explicit PortSettingsDialog( const QString& name, QWidget* parent = 0 );
   ~PortSettingsDialog();
 
 private:

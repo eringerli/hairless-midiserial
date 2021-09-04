@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>601</width>
-    <height>414</height>
+    <width>652</width>
+    <height>481</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -21,59 +21,110 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="2" column="0" colspan="3">
-     <widget class="QListWidget" name="lst_debug">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>150</height>
-       </size>
-      </property>
-      <property name="autoScroll">
-       <bool>true</bool>
+    <item row="0" column="2">
+     <widget class="QGroupBox" name="bridgeHeadRight">
+      <property name="title">
+       <string>Right</string>
       </property>
      </widget>
     </item>
-    <item row="0" column="1" rowspan="2">
-     <widget class="QLabel" name="label_4">
-      <property name="text">
-       <string/>
+    <item row="0" column="1">
+     <widget class="QGroupBox" name="groupBox">
+      <property name="title">
+       <string>Lua Scripting</string>
       </property>
-      <property name="pixmap">
-       <pixmap resource="../../resources.qrc">:/images/images/arrows.png</pixmap>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QCheckBox" name="cbEnableLua">
+         <property name="text">
+          <string>Enable Lua</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="lbLuaFilename">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pbOpenLuaFile">
+         <property name="text">
+          <string>Open Lua Script</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pbLuaReload">
+         <property name="text">
+          <string>Reload</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>26</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="cbLuaDebug">
+         <property name="text">
+          <string>Debug</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QGroupBox" name="bridgeHeadLeft">
+      <property name="title">
+       <string>Left</string>
       </property>
      </widget>
     </item>
-    <item row="0" column="0" rowspan="2">
-     <widget class="QFrame" name="bridgeHeadLeft">
-      <property name="frameShape">
-       <enum>QFrame::NoFrame</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Plain</enum>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="2" rowspan="2">
-     <widget class="QFrame" name="bridgeHeadRight">
-      <property name="frameShape">
-       <enum>QFrame::NoFrame</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Plain</enum>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="0" colspan="3">
+    <item row="4" column="0" colspan="3">
      <widget class="QPushButton" name="pbAbout">
       <property name="text">
        <string>About</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QCheckBox" name="cbAutoScroll">
+      <property name="text">
+       <string>Automatic Scroll</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0" colspan="3">
+     <widget class="QTextEdit" name="teDisplay">
+      <property name="font">
+       <font>
+        <family>Monospace</family>
+       </font>
+      </property>
+      <property name="verticalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOn</enum>
+      </property>
+      <property name="textInteractionFlags">
+       <set>Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="2">
+     <widget class="QPushButton" name="pbClear">
+      <property name="text">
+       <string>Clear</string>
       </property>
      </widget>
     </item>
@@ -81,11 +132,6 @@
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <tabstops>
-  <tabstop>lst_debug</tabstop>
- </tabstops>
- <resources>
-  <include location="../../resources.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

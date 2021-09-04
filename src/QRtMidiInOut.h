@@ -8,7 +8,8 @@
 class QRtMidiInOut : public QObject {
   Q_OBJECT
 public:
-  explicit QRtMidiInOut( QObject* parent = nullptr );
+  explicit QRtMidiInOut( const QString& name, QObject* parent = nullptr );
+  ~QRtMidiInOut();
 
   void attach( int midiInPort, int midiOutPort, QThread* workerThread );
 signals:
@@ -29,4 +30,6 @@ private:
   QRtMidiOut* midiOut     = nullptr;
   int         midiInPort  = 0;
   int         midiOutPort = 0;
+
+  QString name;
 };

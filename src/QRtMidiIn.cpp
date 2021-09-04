@@ -17,4 +17,5 @@ QRtMidiIn::QRtMidiIn( const std::string& clientName )
 
 void QRtMidiIn::midiCallback( double /*timeStamp*/, MidiMsg* message ) {
   emit messageReceived( MidiMsg( *message ) );
+  emit midiReceived();
 }

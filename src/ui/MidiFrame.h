@@ -13,9 +13,9 @@ class MidiFrame : public QFrame {
   Q_OBJECT
 
 public:
-  explicit MidiFrame( QString  name,
-                      QThread* workerThread,
-                      QWidget* parent = nullptr );
+  explicit MidiFrame( const QString name,
+                      QThread*      workerThread,
+                      QWidget*      parent = nullptr );
   ~MidiFrame();
 
   bool eventFilter( QObject*, QEvent* );
@@ -29,16 +29,20 @@ signals:
   void displayMessage( QString message );
   void debugMessage( QString message );
 
+  void onEnabledChanged(bool);
+
 public slots:
   void sendMessage( MidiMsg& message );
 
 private slots:
   void onMidiValuesChanged();
 
+  void on_cbEnable_stateChanged( int );
+
 private:
   void refreshMidiIn();
   void refreshMidiOut();
-  void refreshMidi( QComboBox* combo, RtMidi* midi );
+  void refreshMidi( QComboBox* combo, RtMidi* midi, const QString& setToName );
 
 private:
   Ui::MidiFrame* ui        = nullptr;

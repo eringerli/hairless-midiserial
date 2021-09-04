@@ -8,7 +8,7 @@
 class QMidiDebug : public QObject {
   Q_OBJECT
 public:
-  explicit QMidiDebug( QString prefix, QObject* parent = nullptr );
+  explicit QMidiDebug( const QString& prefix, QObject* parent = nullptr );
 
 signals:
   void debugMessage( QString message );

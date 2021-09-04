@@ -10,7 +10,7 @@
 
 class Settings {
 public:
-  explicit Settings( QString name ) {
+  explicit Settings( const QString name ) {
     settings.beginGroup( name );
   }
 
@@ -90,6 +90,34 @@ public:
   }
   static void setScrollbackSize( int newSize ) {
     QSettings().setValue( "scrollbackSize", newSize );
+  }
+
+  static bool getLastLuaDebugState() {
+    return QSettings().value( "lastLuaDebugState", false ).toBool();
+  }
+  static void setLastLuaDebugState( bool lastLuaDebugState ) {
+    QSettings().setValue( "lastLuaDebugState", lastLuaDebugState );
+  }
+
+  static bool getLastLuaState() {
+    return QSettings().value( "lastLuaState", false ).toBool();
+  }
+  static void setLastLuaState( bool lastLuaState ) {
+    QSettings().setValue( "lastLuaState", lastLuaState );
+  }
+
+  static QString getLastLuaFile() {
+    return QSettings().value( "lastLuaFile", "MIDI" ).toString();
+  }
+  static void setLastLuaFile( QString file ) {
+    QSettings().setValue( "lastLuaFile", file );
+  }
+
+  static bool getAutoScroll() {
+    return QSettings().value( "autoScroll", false ).toBool();
+  }
+  static void setAutoScroll( bool autoScroll ) {
+    QSettings().setValue( "autoScroll", autoScroll );
   }
 
 private:

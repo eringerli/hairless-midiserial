@@ -6,10 +6,10 @@
 #include <QtWidgets/QComboBox>
 #include <utility>
 
-PortSettingsDialog::PortSettingsDialog( QString name, QWidget* parent )
+PortSettingsDialog::PortSettingsDialog( const QString& name, QWidget* parent )
     : QDialog( parent )
     , ui( new Ui::SettingsDialog )
-    , settings( std::move( name ) ) {
+    , settings( name ) {
   ui->setupUi( this );
 
   PortSettings port = settings.getPortSettings();

@@ -13,9 +13,9 @@ class SerialFrame : public QFrame {
   Q_OBJECT
 
 public:
-  explicit SerialFrame( QString  name,
-                        QThread* workerThread,
-                        QWidget* parent = nullptr );
+  explicit SerialFrame( const QString& name,
+                        QThread*       workerThread,
+                        QWidget*       parent = nullptr );
   ~SerialFrame();
 
   bool eventFilter( QObject*, QEvent* );
@@ -29,12 +29,16 @@ signals:
   void displayMessage( QString message );
   void debugMessage( QString message );
 
+  void onEnabledChanged(bool);
+
 public slots:
   void sendMessage( MidiMsg& message );
 
 private slots:
   void onSerialValuesChanged();
   void on_pbSettings_clicked();
+
+  void on_cbEnable_stateChanged( int );
 
 private:
   Ui::SerialFrame*  ui;

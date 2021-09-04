@@ -2,7 +2,15 @@
 #include "ui/mainwindow.h"
 
 #include <QCommandLineParser>
+#include <QDebug>
 #include <QtWidgets/QApplication>
+
+void myMessageOutput( QtMsgType,
+                      const QMessageLogContext&,
+                      const QString& msg ) {
+  QTextStream cout( stdout, QIODevice::WriteOnly );
+  cout << msg << Qt::endl;
+}
 
 int main( int argc, char* argv[] ) {
   QApplication a( argc, argv );
@@ -10,6 +18,8 @@ int main( int argc, char* argv[] ) {
   QCoreApplication::setOrganizationDomain( "projectgus.com2" );
   QCoreApplication::setApplicationName( "Hairless MIDI Serial Bridge2" );
   QCoreApplication::setApplicationVersion( QString::fromUtf8( VERSION ) );
+
+  qInstallMessageHandler( myMessageOutput );
 
   QCommandLineParser parser;
   parser.setApplicationDescription(

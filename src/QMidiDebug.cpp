@@ -19,9 +19,9 @@ constexpr uint8_t TAG_SPECIAL          = 0xF0;
 constexpr uint8_t MSG_SYSEX_START = 0xF0;
 constexpr uint8_t MSG_SYSEX_END   = 0xF7;
 
-QMidiDebug::QMidiDebug( QString prefix, QObject* parent )
+QMidiDebug::QMidiDebug( const QString& prefix, QObject* parent )
     : QObject( parent )
-    , prefix( std::move( std::move( prefix ) ) ) {}
+    , prefix( prefix ) {}
 
 void QMidiDebug::showMessage( MidiMsg buf ) {
 
@@ -104,5 +104,5 @@ void QMidiDebug::showMessage( MidiMsg buf ) {
     debugString = debugString.arg( ( int )buf[ i++ ] );
   }
 
-  emit debugMessage( desc );
+  emit debugMessage( debugString );
 }

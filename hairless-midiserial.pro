@@ -16,6 +16,7 @@ DEFINES += VERSION=\\\"0.6.0\\\"
 # Main Program
 
 SOURCES += \
+    src/LuaMidiInOut.cpp \
     src/QMidiDebug.cpp \
     src/QRtMidiInOut.cpp \
     src/QRtMidiOut.cpp \
@@ -30,6 +31,7 @@ SOURCES += \
     src/ui/portsettingsdialog.cpp
 
 HEADERS  += \
+    src/LuaMidiInOut.h \
     src/QMidi.h \
     src/QMidiDebug.h \
     src/QRtMidiInOut.h \
@@ -145,6 +147,14 @@ win32 {
 macx {
    SOURCES += src/PortLatency_osx.cpp
 }
+
+# LUA
+SOURCES += libraries/lua/lapi.c libraries/lua/lauxlib.c libraries/lua/lbaselib.c libraries/lua/lcode.c libraries/lua/lcorolib.c libraries/lua/lctype.c libraries/lua/ldblib.c libraries/lua/ldebug.c libraries/lua/ldo.c libraries/lua/ldump.c libraries/lua/lfunc.c libraries/lua/lgc.c libraries/lua/linit.c libraries/lua/liolib.c libraries/lua/llex.c libraries/lua/lmathlib.c libraries/lua/lmem.c libraries/lua/loadlib.c libraries/lua/lobject.c libraries/lua/lopcodes.c libraries/lua/loslib.c libraries/lua/lparser.c libraries/lua/lstate.c libraries/lua/lstring.c libraries/lua/lstrlib.c libraries/lua/ltable.c libraries/lua/ltablib.c libraries/lua/ltests.c libraries/lua/ltm.c libraries/lua/lundump.c libraries/lua/lutf8lib.c libraries/lua/lvm.c libraries/lua/lzio.c
+
+HEADERS += libraries/lua/lapi.h libraries/lua/lauxlib.h libraries/lua/lcode.h libraries/lua/lctype.h libraries/lua/ldebug.h libraries/lua/ldo.h libraries/lua/lfunc.h libraries/lua/lgc.h libraries/lua/ljumptab.h libraries/lua/llex.h libraries/lua/llimits.h libraries/lua/lmem.h libraries/lua/lobject.h libraries/lua/lopcodes.h libraries/lua/lopnames.h libraries/lua/lparser.h libraries/lua/lprefix.h libraries/lua/lstate.h libraries/lua/lstring.h libraries/lua/ltable.h libraries/lua/ltests.h libraries/lua/ltm.h libraries/lua/luaconf.h libraries/lua/lualib.h libraries/lua/lundump.h libraries/lua/lvm.h libraries/lua/lzio.h
+
+HEADERS += libraries/sol2/single/include/sol/config.hpp  libraries/sol2/single/include/sol/forward.hpp  libraries/sol2/single/include/sol/sol.hpp
+INCLUDEPATH += libraries/sol2/single/include/
 
 # Resources
 
