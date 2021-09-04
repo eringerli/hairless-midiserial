@@ -2,16 +2,13 @@
 
 #include <QPixmapCache>
 
-const int DEFAULT_LED_BLINKTIME = 75; // ms
-
-const QString RES_LED_ON  = ":/images/images/led-on.png";
-const QString RES_LED_OFF = ":/images/images/led-off.png";
+constexpr int DefaultBlinkTime = 75;
 
 BlinkenLight::BlinkenLight( QWidget* parent )
     : QLabel( parent )
     , on( false ) {
   timer.setSingleShot( true );
-  timer.setInterval( DEFAULT_LED_BLINKTIME );
+  timer.setInterval( DefaultBlinkTime );
   connect( &timer, SIGNAL( timeout() ), this, SLOT( blinkOff() ) );
 }
 
@@ -29,7 +26,7 @@ void BlinkenLight::blinkOn() {
     return;
   }
   timer.start();
-  this->setPixmap( getCachedPixmap( RES_LED_ON ) );
+  this->setPixmap( getCachedPixmap( ":/images/images/led-on.png" ) );
   on = true;
 }
 
@@ -37,6 +34,6 @@ void BlinkenLight::blinkOff() {
   if( !on ) {
     return;
   }
-  this->setPixmap( getCachedPixmap( RES_LED_OFF ) );
+  this->setPixmap( getCachedPixmap( ":/images/images/led-off.png" ) );
   on = false;
 }

@@ -11,27 +11,44 @@ TEMPLATE = app
 
 DEFINES +=APPNAME=\"hairless-midiserial\"
 
-DEFINES += VERSION=\\\"0.5\\\"
+DEFINES += VERSION=\\\"0.6.0\\\"
 
 # Main Program
 
 SOURCES += \
+    src/QMidiDebug.cpp \
+    src/QRtMidiInOut.cpp \
+    src/QRtMidiOut.cpp \
+    src/QSerialMidiInOut.cpp \
     src/main.cpp \
-    src/Bridge.cpp \
     src/BlinkenLight.cpp \
+    src/ui/BridgeHead.cpp \
+    src/ui/MidiFrame.cpp \
+    src/ui/SerialFrame.cpp \
     src/ui/mainwindow.cpp \
     src/ui/aboutdialog.cpp \
-    src/ui/settingsdialog.cpp
+    src/ui/portsettingsdialog.cpp
 
 HEADERS  += \
-    src/Bridge.h \
+    src/QMidi.h \
+    src/QMidiDebug.h \
+    src/QRtMidiInOut.h \
+    src/QRtMidiOut.h \
+    src/QSerialMidiInOut.h \
     src/Settings.h \
     src/BlinkenLight.h \
+    src/ui/BridgeHead.h \
+    src/ui/MidiFrame.h \
+    src/ui/SerialFrame.h \
+    src/ui/commons.h \
     src/ui/mainwindow.h \
-    src/ui/settingsdialog.h \
-    src/ui/aboutdialog.h
+    src/ui/aboutdialog.h \
+    src/ui/portsettingsdialog.h
 
 FORMS += src/ui/mainwindow.ui \
+    src/ui/BridgeHead.ui \
+    src/ui/MidiFrame.ui \
+    src/ui/SerialFrame.ui \
     src/ui/settingsdialog.ui \
     src/ui/aboutdialog.ui
 
@@ -97,7 +114,7 @@ SOURCES +=    libraries/rtmidi/RtMidi.cpp \
 INCLUDEPATH += libraries/rtmidi/
 
 linux-* { # linux doesn't get picked up, not sure what else to use
-  DEFINES += __LINUX_ALSASEQ__
+  DEFINES += __LINUX_ALSASEQ__ __LINUX_ALSA__
   CONFIG += link_pkgconfig x11
   PKGCONFIG += alsa
   LIBS += -lpthread

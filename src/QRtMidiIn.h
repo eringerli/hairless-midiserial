@@ -1,5 +1,4 @@
-#ifndef QRTMIDIIN_H
-#define QRTMIDIIN_H
+#pragma once
 
 /*
  * Very thin QT wrapper for the cross-platform RtMidiIn class.
@@ -7,11 +6,10 @@
  * Exposes the "new MIDI message" callback as a QT signal, which can be sent to
  * a QT slot.
  */
+#include "QMidi.h"
 #include "RtMidi.h"
 
-#include <QByteArray>
 #include <QObject>
-#include <stdint.h>
 
 class QRtMidiIn
     : public QObject
@@ -21,10 +19,9 @@ class QRtMidiIn
 public:
   QRtMidiIn(
     const std::string& clientName = std::string( "QRtMidi Input Client" ) );
-  void midiCallback( double timeStamp, std::vector< unsigned char >* message );
+  void midiCallback( double timeStamp, MidiMsg* message );
   virtual ~QRtMidiIn( void ) throw() {}
 signals:
-  void messageReceived( double timeStamp, QByteArray message );
+  void midiReceived();
+  void messageReceived( MidiMsg message );
 };
-
-#endif // QRTMIDIIN_H

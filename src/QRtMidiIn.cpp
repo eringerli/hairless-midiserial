@@ -1,8 +1,7 @@
 #include "QRtMidiIn.h"
 
-static void midiCallbackOuter( double                        timeStamp,
-                               std::vector< unsigned char >* message,
-                               void*                         userData ) {
+static void
+midiCallbackOuter( double timeStamp, MidiMsg* message, void* userData ) {
   auto* midi = ( QRtMidiIn* )userData;
   midi->midiCallback( timeStamp, message );
 }
@@ -16,9 +15,6 @@ QRtMidiIn::QRtMidiIn( const std::string& clientName )
   this->setCallback( midiCallbackOuter, this );
 }
 
-void QRtMidiIn::midiCallback( double                        timeStamp,
-                              std::vector< unsigned char >* message ) {
-  QByteArray messageCopy =
-    QByteArray( ( const char* )message->data(), message->size() );
-  emit messageReceived( timeStamp, messageCopy );
+void QRtMidiIn::midiCallback( double /*timeStamp*/, MidiMsg* message ) {
+  emit messageReceived( MidiMsg( *message ) );
 }

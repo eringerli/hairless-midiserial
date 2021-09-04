@@ -6,55 +6,55 @@
 #include <QSettings>
 
 // Note that main.cpp sets QCoreApplication::applicationName and such, allowing
-// us to use a plain QSettings() constructor
+// us to use a plain settings constructor
 
 class Settings {
 public:
-  static QString getLastSerialPort() {
-    return QSettings().value( "lastSerialPort", "" ).toString();
-  }
-  static void setLastSerialPort( QString port ) {
-    QSettings().setValue( "lastSerialPort", port );
+  explicit Settings( QString name ) {
+    settings.beginGroup( name );
   }
 
-  static QString getLastMidiIn() {
-    return QSettings().value( "lastMidiIn", "" ).toString();
-  }
-  static void setLastMidiIn( QString port ) {
-    QSettings().setValue( "lastMidiIn", port );
+  ~Settings() {
+    settings.endGroup();
   }
 
-  static QString getLastMidiOut() {
-    return QSettings().value( "lastMidiOut", "" ).toString();
+  bool getDebug() {
+    return settings.value( "debug", false ).toBool();
   }
-  static void setLastMidiOut( QString port ) {
-    QSettings().setValue( "lastMidiOut", port );
-  }
-
-  static int getScrollbackSize() {
-    return QSettings().value( "scrollbackSize", 75 ).toInt();
-  }
-  static void setScrollbackSize( int newSize ) {
-    QSettings().setValue( "scrollbackSize", newSize );
+  void setDebug( bool debug ) {
+    settings.setValue( "debug", debug );
   }
 
-  static bool getDebug() {
-    return QSettings().value( "debug", false ).toBool();
+  QString getLastType() {
+    return settings.value( "lastType", "MIDI" ).toString();
   }
-  static void setDebug( bool debug ) {
-    QSettings().setValue( "debug", debug );
-  }
-
-  static bool getConsoleOutput() {
-    return QSettings().value( "consoleOutput", false ).toBool();
-  }
-  static void setConsoleOutput( bool consoleOutput ) {
-    QSettings().setValue( "consoleOutput", consoleOutput );
+  void setLastType( QString type ) {
+    settings.setValue( "lastType", type );
   }
 
-  static PortSettings getPortSettings() {
+  QString getLastMidiIn() {
+    return settings.value( "lastMidiIn", "" ).toString();
+  }
+  void setLastMidiIn( QString port ) {
+    settings.setValue( "lastMidiIn", port );
+  }
+
+  QString getLastMidiOut() {
+    return settings.value( "lastMidiOut", "" ).toString();
+  }
+  void setLastMidiOut( QString port ) {
+    settings.setValue( "lastMidiOut", port );
+  }
+
+  QString getLastSerialPort() {
+    return settings.value( "lastSerialPort", "" ).toString();
+  }
+  void setLastSerialPort( QString port ) {
+    settings.setValue( "lastSerialPort", port );
+  }
+
+  PortSettings getPortSettings() {
     PortSettings result;
-    QSettings    settings;
     result.BaudRate =
       ( BaudRateType )settings.value( "baudRate", ( int )BAUD115200 ).toInt();
     result.DataBits =
@@ -70,14 +70,30 @@ public:
     return result;
   }
 
-  static void setPortSettings( PortSettings newSettings ) {
-    QSettings settings;
+  void setPortSettings( PortSettings newSettings ) {
     settings.setValue( "baudRate", ( int )newSettings.BaudRate );
     settings.setValue( "dataBits", ( int )newSettings.DataBits );
     settings.setValue( "flowControl", ( int )newSettings.FlowControl );
     settings.setValue( "parity", ( int )newSettings.Parity );
     settings.setValue( "stopBits", ( int )newSettings.StopBits );
   }
+
+  static bool getConsoleOutput() {
+    return QSettings().value( "consoleOutput", false ).toBool();
+  }
+  static void setConsoleOutput( bool consoleOutput ) {
+    QSettings().setValue( "consoleOutput", consoleOutput );
+  }
+
+  static int getScrollbackSize() {
+    return QSettings().value( "scrollbackSize", 75 ).toInt();
+  }
+  static void setScrollbackSize( int newSize ) {
+    QSettings().setValue( "scrollbackSize", newSize );
+  }
+
+private:
+  QSettings settings;
 };
 
 #endif // SETTINGS_H

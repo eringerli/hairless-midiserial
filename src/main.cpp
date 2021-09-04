@@ -6,9 +6,9 @@
 
 int main( int argc, char* argv[] ) {
   QApplication a( argc, argv );
-  QCoreApplication::setOrganizationName( "Projectgus" );
-  QCoreApplication::setOrganizationDomain( "projectgus.com" );
-  QCoreApplication::setApplicationName( "Hairless MIDI Serial Bridge" );
+  QCoreApplication::setOrganizationName( "Projectgus2" );
+  QCoreApplication::setOrganizationDomain( "projectgus.com2" );
+  QCoreApplication::setApplicationName( "Hairless MIDI Serial Bridge2" );
   QCoreApplication::setApplicationVersion( QString::fromUtf8( VERSION ) );
 
   QCommandLineParser parser;
@@ -48,19 +48,7 @@ int main( int argc, char* argv[] ) {
   parser.addOption( midiOutOption );
 
   parser.process( a );
-  if( parser.isSet( showDebugOption ) ) {
-    Settings::setDebug( true );
-  }
   Settings::setConsoleOutput( parser.isSet( consoleOutputOption ) );
-  if( parser.isSet( serialPortOption ) ) {
-    Settings::setLastSerialPort( parser.value( serialPortOption ) );
-  }
-  if( parser.isSet( midiInOption ) ) {
-    Settings::setLastMidiIn( parser.value( midiInOption ) );
-  }
-  if( parser.isSet( midiOutOption ) ) {
-    Settings::setLastMidiOut( parser.value( midiOutOption ) );
-  }
   MainWindow w;
   if( !parser.isSet( hideWindowOption ) ) {
     w.show();

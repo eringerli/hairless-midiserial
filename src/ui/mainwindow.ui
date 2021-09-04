@@ -21,66 +21,7 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="1" column="0">
-     <widget class="QLabel" name="label">
-      <property name="maximumSize">
-       <size>
-        <width>212</width>
-        <height>16777215</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>Serial port</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="4">
-     <widget class="QLabel" name="label_3">
-      <property name="maximumSize">
-       <size>
-        <width>212</width>
-        <height>16777215</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>MIDI In</string>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="4">
-     <widget class="QComboBox" name="cmbMidiIn">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="0">
-     <widget class="QComboBox" name="cmbSerial">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="0" colspan="5">
-     <widget class="QCheckBox" name="chk_debug">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="text">
-       <string>Debug MIDI messages</string>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="0" colspan="5">
+    <item row="2" column="0" colspan="3">
      <widget class="QListWidget" name="lst_debug">
       <property name="sizePolicy">
        <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
@@ -99,39 +40,7 @@
       </property>
      </widget>
     </item>
-    <item row="1" column="3">
-     <widget class="BlinkenLight" name="led_midiout">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="pixmap">
-       <pixmap resource="../../resources.qrc">:/images/images/led-off.png</pixmap>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="1">
-     <widget class="BlinkenLight" name="led_serial">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="pixmap">
-       <pixmap resource="../../resources.qrc">:/images/images/led-off.png</pixmap>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="2" rowspan="4">
+    <item row="0" column="1" rowspan="2">
      <widget class="QLabel" name="label_4">
       <property name="text">
        <string/>
@@ -141,119 +50,38 @@
       </property>
      </widget>
     </item>
-    <item row="1" column="4">
-     <widget class="QComboBox" name="cmbMidiOut">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="3">
-     <widget class="BlinkenLight" name="led_midiin">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="pixmap">
-       <pixmap resource="../../resources.qrc">:/images/images/led-off.png</pixmap>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="4">
-     <widget class="QLabel" name="label_2">
-      <property name="maximumSize">
-       <size>
-        <width>212</width>
-        <height>16777215</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>MIDI Out</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="0">
-     <widget class="QCheckBox" name="chk_on">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="text">
-       <string>Serial&lt;-&gt;MIDI Bridge On</string>
-      </property>
-      <property name="checked">
-       <bool>true</bool>
-      </property>
-     </widget>
-    </item>
-    <item row="6" column="0" colspan="5">
-     <widget class="QFrame" name="frame">
+    <item row="0" column="0" rowspan="2">
+     <widget class="QFrame" name="bridgeHeadLeft">
       <property name="frameShape">
        <enum>QFrame::NoFrame</enum>
       </property>
       <property name="frameShadow">
        <enum>QFrame::Plain</enum>
       </property>
-      <layout class="QHBoxLayout" name="horizontalLayout">
-       <property name="spacing">
-        <number>6</number>
-       </property>
-       <property name="leftMargin">
-        <number>0</number>
-       </property>
-       <property name="topMargin">
-        <number>0</number>
-       </property>
-       <property name="rightMargin">
-        <number>0</number>
-       </property>
-       <property name="bottomMargin">
-        <number>0</number>
-       </property>
-       <item>
-        <widget class="QPushButton" name="pbSettings">
-         <property name="text">
-          <string>Settings</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="pbAbout">
-         <property name="text">
-          <string>About</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
+     </widget>
+    </item>
+    <item row="0" column="2" rowspan="2">
+     <widget class="QFrame" name="bridgeHeadRight">
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Plain</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0" colspan="3">
+     <widget class="QPushButton" name="pbAbout">
+      <property name="text">
+       <string>About</string>
+      </property>
      </widget>
     </item>
    </layout>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <customwidgets>
-  <customwidget>
-   <class>BlinkenLight</class>
-   <extends>QLabel</extends>
-   <header>src/BlinkenLight.h</header>
-  </customwidget>
- </customwidgets>
  <tabstops>
-  <tabstop>chk_on</tabstop>
-  <tabstop>cmbSerial</tabstop>
-  <tabstop>cmbMidiOut</tabstop>
-  <tabstop>cmbMidiIn</tabstop>
-  <tabstop>chk_debug</tabstop>
   <tabstop>lst_debug</tabstop>
  </tabstops>
  <resources>

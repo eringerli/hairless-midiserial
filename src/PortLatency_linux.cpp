@@ -13,10 +13,10 @@
 
 extern "C" {
 #include <asm/ioctls.h>
+#include <cstdio>
 #include <fcntl.h>
 #include <linux/ioctl.h>
 #include <linux/serial.h>
-#include <stdio.h>
 #include <sys/ioctl.h>
 #include <unistd.h>
 }
