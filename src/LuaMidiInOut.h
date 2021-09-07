@@ -5,6 +5,7 @@
 #include "QRtMidiOut.h"
 
 #include <QObject>
+#include <QTimer>
 #include <sol/sol.hpp>
 
 class LuaMidiInOut : public QObject {
@@ -24,6 +25,8 @@ signals:
   void displayMessage( QString message );
   void debugMessage( QString message );
 
+  void setInterval( int );
+
 public slots:
   void sendMessageLeft( MidiMsg message );
   void sendMessageRight( MidiMsg message );
@@ -31,12 +34,18 @@ public slots:
   void onMessageReceivedLeft( MidiMsg message );
   void onMessageReceivedRight( MidiMsg message );
 
+  void onTimer();
+  void setTimeout( int );
+
   void changeDebug( bool );
 
 private:
   sol::state lua;
   QString    name;
   QString    fileName;
+  QTimer     timer;
+
+  int timeout = 500;
 
   bool        debugEnabled  = false;
   QMidiDebug* debugLeftIn   = nullptr;

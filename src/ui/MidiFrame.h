@@ -29,7 +29,7 @@ signals:
   void displayMessage( QString message );
   void debugMessage( QString message );
 
-  void onEnabledChanged(bool);
+  void onEnabledChanged( bool );
 
 public slots:
   void sendMessage( MidiMsg& message );

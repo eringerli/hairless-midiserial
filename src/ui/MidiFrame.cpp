@@ -112,7 +112,7 @@ void MidiFrame::onMidiValuesChanged() {
     midiInOut = nullptr;
   }
 
-  emit onEnabledChanged(ui->cbEnable->isChecked());
+  emit onEnabledChanged( ui->cbEnable->isChecked() );
 }
 
 void MidiFrame::sendMessage( MidiMsg& message ) {

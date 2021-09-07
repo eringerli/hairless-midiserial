@@ -102,7 +102,7 @@ void SerialFrame::onSerialValuesChanged() {
     midiInOut = nullptr;
   }
 
-  emit onEnabledChanged(ui->cbEnable->isChecked());
+  emit onEnabledChanged( ui->cbEnable->isChecked() );
 }
 
 void SerialFrame::on_pbSettings_clicked() {
@@ -121,7 +121,7 @@ void SerialFrame::refreshSerial() {
     QString portName = port.physName; // Bug workaround, Linux needs the /dev/
                                       // in front of port name
 #else
-    QString portName = it->portName;
+    QString portName = port.portName;
 #endif
     ui->cmbSerial->addItem( label, QVariant( portName ) );
     if( current == label ) {

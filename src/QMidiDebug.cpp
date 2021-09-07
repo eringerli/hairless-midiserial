@@ -33,6 +33,14 @@ void QMidiDebug::showMessage( MidiMsg buf ) {
   auto debugString = QString( prefix );
   debugString.append( ": " );
 
+  for( const uint8_t& b: buf ) {
+    if( b <= 0xF ) {
+      debugString.append( '0' );
+    }
+    debugString.append( QString::number( b, 16 ) );
+  }
+  debugString.append( " " );
+
   // Work out what we have
   switch( tag ) {
     case TAG_PROGRAM:

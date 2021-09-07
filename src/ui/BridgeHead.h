@@ -32,7 +32,7 @@ signals:
 public slots:
   void sendMessage( MidiMsg message );
 
-  void setFrameEnabled(bool);
+  void setFrameEnabled( bool );
 
   void onDisplayMessage( QString message );
   void onDebugMessage( QString message );
@@ -48,7 +48,7 @@ private:
   Ui::BridgeHead* ui = nullptr;
   QString         name;
   QThread*        workerThread = nullptr;
-  bool frameEnabled = false;
+  bool            frameEnabled = false;
   MidiFrame*      midiFrame    = nullptr;
   SerialFrame*    serialFrame  = nullptr;
   QHBoxLayout*    layout       = nullptr;

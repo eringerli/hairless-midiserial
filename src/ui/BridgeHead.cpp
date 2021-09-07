@@ -33,22 +33,21 @@ BridgeHead::~BridgeHead() {
 
 void BridgeHead::sendMessage( MidiMsg message ) {
   if( midiFrame != nullptr ) {
-    midiFrame->sendMessage( message );
     if( debugOut != nullptr && frameEnabled ) {
       debugOut->showMessage( message );
     }
+    midiFrame->sendMessage( message );
   }
   if( serialFrame != nullptr ) {
-    serialFrame->sendMessage( message );
     if( debugOut != nullptr && frameEnabled ) {
       debugOut->showMessage( message );
     }
+    serialFrame->sendMessage( message );
   }
 }
 
-void BridgeHead::setFrameEnabled(bool enabled)
-{
-    frameEnabled=enabled;
+void BridgeHead::setFrameEnabled( bool enabled ) {
+  frameEnabled = enabled;
 }
 
 void BridgeHead::onDisplayMessage( QString message ) {
@@ -80,11 +79,11 @@ void BridgeHead::on_cbDebug_stateChanged( int ) {
     }
 
     if( midiFrame != nullptr ) {
-        connect( midiFrame,
-                 &MidiFrame::messageReceived,
-                 debugIn,
-                 &QMidiDebug::showMessage,
-                 Qt::UniqueConnection );
+      connect( midiFrame,
+               &MidiFrame::messageReceived,
+               debugIn,
+               &QMidiDebug::showMessage,
+               Qt::UniqueConnection );
     }
     if( serialFrame != nullptr ) {
       connect( serialFrame,
@@ -169,7 +168,7 @@ void BridgeHead::onRadioButtonsClicked() {
       connect( serialFrame,
                &SerialFrame::onEnabledChanged,
                this,
-               &BridgeHead::setFrameEnabled);
+               &BridgeHead::setFrameEnabled );
     }
   }
   on_cbDebug_stateChanged( 0 );

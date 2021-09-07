@@ -210,10 +210,9 @@ void MainWindow::plumbSignalsForLua() {
   }
 }
 
-void MainWindow::on_pbLuaReload_clicked()
-{
-    if(ui->cbEnableLua->isChecked()){
-    ui->cbEnableLua->setChecked(false);
-    ui->cbEnableLua->setChecked(true);}
+void MainWindow::on_pbLuaReload_clicked() {
+  if( ui->cbEnableLua->isChecked() ) {
+    ui->cbEnableLua->setChecked( false );
+    ui->cbEnableLua->setChecked( true );
+  }
 }
-

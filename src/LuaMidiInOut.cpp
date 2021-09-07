@@ -7,16 +7,33 @@
 #include <sol/sol.hpp>
 #include <utility>
 
+inline void my_panic( sol::optional< std::string > maybe_msg ) {
+  std::cerr << "Lua is in a panic state and will now abort() the application"
+            << std::endl;
+  if( maybe_msg ) {
+    const std::string& msg = maybe_msg.value();
+    std::cerr << "\terror message: " << msg << std::endl;
+  }
+  // When this function exits, Lua will exhibit default behavior and abort()
+}
+
 LuaMidiInOut::LuaMidiInOut( const QString& name,
                             QThread*       workerThread,
                             QObject*       parent )
     : QObject( parent )
     , name( name ) {
-  this->moveToThread( workerThread );
 
   // Lua
   // open some common libraries
-  lua.open_libraries( sol::lib::base, sol::lib::package );
+  lua.open_libraries( sol::lib::base,
+                      sol::lib::package,
+                      sol::lib::coroutine,
+                      sol::lib::string,
+                      sol::lib::os,
+                      sol::lib::math,
+                      sol::lib::table,
+                      sol::lib::bit32,
+                      sol::lib::io );
 
   lua.set_function( "sendMessageLeft",
                     &LuaMidiInOut::onMessageReceivedLeft,
@@ -24,6 +41,19 @@ LuaMidiInOut::LuaMidiInOut( const QString& name,
   lua.set_function( "sendMessageRight",
                     &LuaMidiInOut::onMessageReceivedRight,
                     this );
+  lua.set_function( "setTimeout", &LuaMidiInOut::setTimeout, this );
+
+  lua.set_panic( sol::c_call< decltype( &my_panic ), &my_panic > );
+
+  timer.start( timeout );
+  connect( &timer, &QTimer::timeout, this, &LuaMidiInOut::onTimer );
+  connect( this,
+           &LuaMidiInOut::setInterval,
+           &timer,
+           QOverload< int >::of( &QTimer::setInterval ) );
+
+  this->moveToThread( workerThread );
+  timer.moveToThread( workerThread );
 }
 
 LuaMidiInOut::~LuaMidiInOut() = default;
@@ -34,6 +64,7 @@ void LuaMidiInOut::openLuaFile( const QString& fileNameToOpen ) {
     fileName = fileNameToOpen;
     Settings::setLastLuaFile( fileName );
 
+    displayMessage( QString( "Loaded Lua script: " ).append( fileName ) );
     lua.safe_script_file(
       fileName.toStdString(),
       [ this ]( lua_State*, sol::protected_function_result pfr ) {
@@ -76,6 +107,21 @@ void LuaMidiInOut::onMessageReceivedLeft( MidiMsg message ) {
 
 void LuaMidiInOut::onMessageReceivedRight( MidiMsg message ) {
   emit messageReceivedRight( message );
+}
+
+void LuaMidiInOut::onTimer() {
+  sol::function f = lua[ "onTimer" ];
+  if( f.valid() ) {
+    f();
+  }
+  emit setInterval( timeout );
+}
+
+void LuaMidiInOut::setTimeout( int msec ) {
+  if( msec < 1 ) {
+    msec = 1;
+  }
+  timeout = msec;
 }
 
 void LuaMidiInOut::enableDebug() {
