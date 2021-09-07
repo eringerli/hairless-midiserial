@@ -34,6 +34,17 @@ And don't ever think about any performace hit, with todays multi core, multi GHz
 - The console stuff added by rhargreaves isn't tested (and is likely not working). As I want to use it on windows, where it doesn't make much sense. No comparison between an CMD.EXE window and a proper bash console...
 - I removed the EverDrive Pro stuff, as I don't need that
 
+### Traktor F1 + Rekordbox lightning mode
+
+You can't connect the whole thing trivially like Traktor F1 <=> Lua <=> virtual MIDI port, Rekordboxs feedback creates a loop. You have to split the MIDI in and out to two virtual ports. To do it, follow these steps: 
+
+1. Install [LoopMidi](https://www.tobias-erichsen.de/software/loopmidi.html) and create two seperate ports
+1. Install Native Instruments [Controller Editor](https://www.native-instruments.com/en/support/downloads/drivers-other-files/) and load the template ```template.nckf1```
+1. Compile and run this project
+1. Set the left side to the Traktor F1 in/out, the middle to the script ```traktorF1.lua``` and the right side to each of the two created virtual MIDI ports
+1. Open Rekordbox and then the MIDI editor. On the virtual port configured as input on the right side, import the file ```loopMIDI Port out.csv```, on the other the other file
+1. Enjoy having a really cool lightning controller
+
 ## Things added by the last [fork](rhargreaves/hairless-midiserial)
 
 ### Command-line support
